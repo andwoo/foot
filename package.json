@@ -1,0 +1,25 @@
+{
+  "name": "foot",
+  "version": "1.0.0",
+  "description": "Canvas game engine",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andwoo/foot.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andwoo/foot/issues"
+  },
+  "homepage": "https://github.com/andwoo/foot#readme",
+  "devDependencies": {
+    "ts-loader": "^2.0.0",
+    "typescript": "^2.1.5",
+    "webpack": "^2.2.1"
+  }
+}
