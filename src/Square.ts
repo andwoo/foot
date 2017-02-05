@@ -1,24 +1,22 @@
-import Vector2 from "./Vector2";
+import GameObject from "./components/GameObject";
+import Vector2 from "./data/Vector2";
 
-export default class Square {
-  public position : Vector2;
+export default class Square extends GameObject {
   public velocity : Vector2;
 
   constructor() {
-    this.position = new Vector2();
-    this.velocity = new Vector2();
-
-    this.velocity.y = 9.8;
+    super();
+    this.velocity = new Vector2(0, 9.8);
   }
 
   update() {
-    this.position.y += this.velocity.y;
+    this.transform.position.y += this.velocity.y;
   }
 
   draw(context : CanvasRenderingContext2D) {
     context.save();
 
-    context.translate(this.position.x, this.position.y);
+    context.translate(this.transform.position.x, this.transform.position.y);
 
     context.rotate(45*Math.PI/180);
     context.fillStyle = 'rgba(0, 0, 200, 0.5)';
