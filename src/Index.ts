@@ -1,4 +1,4 @@
-import Square from "./Square";
+import TestObject from "./TestObject";
 
 var canvas : HTMLCanvasElement = document.getElementById("simulator") as HTMLCanvasElement;
 canvas.width = window.innerWidth;
@@ -10,22 +10,22 @@ window.addEventListener('resize', function() {
   canvas.height = window.innerHeight;
 }, false);
 
-var square = new Square();
+var test = new TestObject();
 
-function update() {
-  square.update();
+function Update() {
+  test.Update();
 }
 
-function draw(context : CanvasRenderingContext2D) {
-  square.draw(context);
+function Draw(context : CanvasRenderingContext2D) {
+  test.Draw(context);
 }
 
 function render() {
   requestAnimationFrame(render);
-  update();
+  Update();
   context.clearRect(0, 0, canvas.width, canvas.height);
   context.fillStyle = 'rgba(0, 0, 0, 1)';
   context.fillRect (0, 0, canvas.width, canvas.height);
-  draw(context);
+  Draw(context);
 }
 render();
