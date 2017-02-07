@@ -15,7 +15,7 @@ export default class Transform {
   public get children() { return this._children; }
 
   public localPosition : Vector2;
-  
+
   public get position() : Vector2 {
     if(this._parent) {
       return new Vector2(this._parent.position.x + this.localPosition.x, this._parent.position.y + this.localPosition.y);
@@ -27,8 +27,8 @@ export default class Transform {
 
   public Setposition(value : Vector2) {
     if(this._parent) {
-      this.localPosition.x = this._parent.position.x - value.x;
-      this.localPosition.x = this._parent.position.y - value.y;
+      this.localPosition.x = value.x - this._parent.position.x;
+      this.localPosition.y = value.y - this._parent.position.y;
     }
     else {
       this.localPosition = value;

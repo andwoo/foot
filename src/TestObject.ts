@@ -4,6 +4,7 @@ import Square from "./shapes/Square";
 
 export default class TestObject extends GameObject {
   public velocity : Vector2;
+  public toggleRotation : boolean;
 
   constructor() {
     super();
@@ -12,11 +13,12 @@ export default class TestObject extends GameObject {
     this.AddComponent(squareComponent);
 
     this.velocity = new Vector2(0, 9.8);
-    this.transform.Setposition(new Vector2(500, 400));
   }
 
   Update() {
     //this.transform.position.y += this.velocity.y;
-    //this.transform.rotation += 5;
+    if(this.toggleRotation) {
+      this.transform.rotation += 5;
+    }
   }
 }

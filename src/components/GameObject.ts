@@ -44,11 +44,11 @@ export default class GameObject {
     for(let i = 0; i < this._components.length; ++i) {
       this._components[i].Draw(context);
     }
+    
+    context.restore();
 
     for(let i = 0; i < this._transform.children.length; ++i) {
       this._transform.children[i].gameObject.Draw(context);
     }
-
-    context.restore();
   }
 }
