@@ -1,31 +1,15 @@
 import TestObject from "./TestObject";
+import GameObject from "./components/GameObject";
+import Square from "./shapes/Square";
+import Vector2 from "./data/Vector2";
+import Foot from "./Foot";
 
-var canvas : HTMLCanvasElement = document.getElementById("simulator") as HTMLCanvasElement;
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-var context : CanvasRenderingContext2D = canvas.getContext("2d");
+var foot = new Foot();
+foot.SetCanvas(document.getElementById("simulator") as HTMLCanvasElement);
+let test : TestObject = foot.CreateGameObject(TestObject);
 
-window.addEventListener('resize', function() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}, false);
-
-var test = new TestObject();
-
-function Update() {
-  test.Update();
-}
-
-function Draw(context : CanvasRenderingContext2D) {
-  test.Draw(context);
-}
-
-function render() {
-  requestAnimationFrame(render);
-  Update();
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  context.fillStyle = 'rgba(0, 0, 0, 1)';
-  context.fillRect (0, 0, canvas.width, canvas.height);
-  Draw(context);
-}
-render();
+console.log(test.transform.position);
+let testThree : TestObject = foot.CreateGameObject(TestObject, test);
+console.log(testThree.transform.position);
+testThree.transform.Setposition(new Vector2(testThree.transform.position.x + 50, testThree.transform.position.y));
+console.log(testThree.transform.position);

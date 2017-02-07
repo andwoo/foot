@@ -8,16 +8,15 @@ export default class TestObject extends GameObject {
   constructor() {
     super();
 
-    let squareComponent = new Square();
-    squareComponent.size = new Vector2(50, 50);
+    let squareComponent = new Square(new Vector2(50, 50));
     this.AddComponent(squareComponent);
 
     this.velocity = new Vector2(0, 9.8);
-    this.transform.position = new Vector2(500, 400);
+    this.transform.Setposition(new Vector2(500, 400));
   }
 
   Update() {
     //this.transform.position.y += this.velocity.y;
-    this.transform.rotation += 5;
+    //this.transform.rotation += 5;
   }
 }

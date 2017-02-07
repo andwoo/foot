@@ -10,7 +10,7 @@ export default class GameObject {
 
   constructor() {
     this._components = new Array<Component>();
-    this._transform = new Transform();
+    this._transform = new Transform(this);
   }
 
   AddComponent(component : Component) {
@@ -30,6 +30,10 @@ export default class GameObject {
     for(let i = 0; i < this._components.length; ++i) {
       this._components[i].Update();
     }
+
+    for(let i = 0; i < this._transform.children.length; ++i) {
+      this._transform.children[i].gameObject.Update();
+    }
   }
 
   Draw(context : CanvasRenderingContext2D) {
@@ -39,6 +43,10 @@ export default class GameObject {
 
     for(let i = 0; i < this._components.length; ++i) {
       this._components[i].Draw(context);
+    }
+
+    for(let i = 0; i < this._transform.children.length; ++i) {
+      this._transform.children[i].gameObject.Draw(context);
     }
 
     context.restore();

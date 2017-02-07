@@ -1,11 +1,39 @@
+import GameObject from "./GameObject";
 import Vector2 from "../data/Vector2";
 
 const DEGREES_TO_RADIANS : number = 0.0174533;
 const RADIANS_TO_DEGREES : number = 57.2958;
 
 export default class Transform {
+  private _gameObject : GameObject;
+  public get gameObject() { return this._gameObject; }
 
-  public position : Vector2;
+  private _parent : Transform;
+  public get parent() { return this._parent; }
+
+  private _children : Array<Transform>;
+  public get children() { return this._children; }
+
+  public localPosition : Vector2;
+  
+  public get position() : Vector2 {
+    if(this._parent) {
+      return new Vector2(this._parent.position.x + this.localPosition.x, this._parent.position.y + this.localPosition.y);
+    }
+    else {
+      return this.localPosition;
+    }
+  }
+
+  public Setposition(value : Vector2) {
+    if(this._parent) {
+      this.localPosition.x = this._parent.position.x - value.x;
+      this.localPosition.x = this._parent.position.y - value.y;
+    }
+    else {
+      this.localPosition = value;
+    }
+  }
 
   private _rotation : number;
   public get rotation() { return this._rotation; }
@@ -28,8 +56,15 @@ export default class Transform {
     }
   } 
 
-  constructor() {
-    this.position = new Vector2(0, 0);
+  constructor(gameObject : GameObject) {
+    this._gameObject = gameObject;
+    this.localPosition = new Vector2();
+    this._children = new Array<Transform>();
     this.rotation = 0;
+  }
+
+  SetParent(parent : Transform) {
+    this._parent = parent;
+    this._parent._children.push(this);
   }
 }
