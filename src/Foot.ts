@@ -28,10 +28,19 @@ export default class Foot extends GameObject {
 
   BeginFrame() {
     requestAnimationFrame(this.BeginFrame.bind(this));
+
+    for(let i = 0; i < this.transform.children.length; ++i) {
+      this.transform.children[i].gameObject.Update();
+    }
+
     this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
     this._context.fillStyle = 'rgba(0, 0, 0, 1)';
     this._context.fillRect (0, 0, this._canvas.width, this._canvas.height);
-    this.Update();
-    this.Draw(this._context);
+
+    for(let i = 0; i < this.transform.children.length; ++i) {
+      this._context.save();
+      this.transform.children[i].gameObject.Draw(this._context);
+      this._context.restore();
+    }
   }
 }

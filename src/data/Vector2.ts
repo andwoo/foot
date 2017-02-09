@@ -1,9 +1,17 @@
 export default class Vector2 {
-  public x : number;
-  public y : number;
+  private _x : number;
+  private _y : number;
+
+  public get x() {
+    return this._x;
+  }
+
+  public get y() {
+    return this._y;
+  }
 
   constructor(x : number = 0, y : number = 0) {
-    this.x = x;
-    this.y = y;
+    this._x = x;
+    this._y = y;
   }
 }

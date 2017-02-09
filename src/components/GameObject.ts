@@ -37,15 +37,12 @@ export default class GameObject {
   }
 
   Draw(context : CanvasRenderingContext2D) {
-    context.save();
-    context.translate(this._transform.position.x, this._transform.position.y);
+    context.translate(this._transform.localPosition.x, this._transform.localPosition.y);
     context.rotate(this._transform.rotationRadians);
 
     for(let i = 0; i < this._components.length; ++i) {
       this._components[i].Draw(context);
     }
-    
-    context.restore();
 
     for(let i = 0; i < this._transform.children.length; ++i) {
       this._transform.children[i].gameObject.Draw(context);

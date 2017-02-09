@@ -16,22 +16,19 @@ export default class Transform {
 
   public localPosition : Vector2;
 
+  private _position : Vector2;
   public get position() : Vector2 {
-    if(this._parent) {
-      return new Vector2(this._parent.position.x + this.localPosition.x, this._parent.position.y + this.localPosition.y);
-    }
-    else {
-      return this.localPosition;
-    }
+    return this._position;
   }
 
-  public Setposition(value : Vector2) {
+  public set position(value : Vector2) {
     if(this._parent) {
-      this.localPosition.x = value.x - this._parent.position.x;
-      this.localPosition.y = value.y - this._parent.position.y;
+      this.localPosition = new Vector2(value.x - this._parent.position.x, value.y - this._parent.position.y);
+      this._position = new Vector2(this._parent.position.x + this.localPosition.x, this._parent.position.y + this.localPosition.y);
     }
     else {
       this.localPosition = value;
+      this.position = this.localPosition;
     }
   }
 
@@ -59,6 +56,7 @@ export default class Transform {
   constructor(gameObject : GameObject) {
     this._gameObject = gameObject;
     this.localPosition = new Vector2();
+    this._position = new Vector2();
     this._children = new Array<Transform>();
     this.rotation = 0;
   }
@@ -66,5 +64,6 @@ export default class Transform {
   SetParent(parent : Transform) {
     this._parent = parent;
     this._parent._children.push(this);
+    this._position = parent.position;
   }
 }
