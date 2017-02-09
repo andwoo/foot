@@ -18,7 +18,8 @@ export default class TestObject extends GameObject {
   Update() {
     //this.transform.position.y += this.velocity.y;
     if(this.toggleRotation) {
-      this.transform.rotation += 5;
+      this.transform.rotation += 1;
     }
+    super.Update();
   }
 }

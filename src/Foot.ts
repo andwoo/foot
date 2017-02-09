@@ -4,6 +4,14 @@ export default class Foot extends GameObject {
   private _canvas : HTMLCanvasElement;
   private _context : CanvasRenderingContext2D;
 
+  public get canvasWidth() {
+    return this._canvas.width;
+  }
+
+   public get canvasHeight() {
+    return this._canvas.height;
+  }
+
   SetCanvas(canvas : HTMLCanvasElement) {
     this._canvas = canvas;
     this._context = this._canvas.getContext("2d");

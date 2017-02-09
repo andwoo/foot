@@ -47,5 +47,8 @@ export default class GameObject {
     for(let i = 0; i < this._transform.children.length; ++i) {
       this._transform.children[i].gameObject.Draw(context);
     }
+
+    context.translate(-this._transform.localPosition.x, -this._transform.localPosition.y);
+    context.rotate(-this._transform.rotationRadians);
   }
 }
