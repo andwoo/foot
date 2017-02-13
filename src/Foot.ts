@@ -28,8 +28,8 @@ export default class Foot extends GameObject {
     this._canvas.height = window.innerHeight;
   }
 
-  CreateGameObject<TGameObject extends GameObject>(type: { new(): TGameObject ;}, parent ?: GameObject) : TGameObject {
-    let go : TGameObject = new type();
+  CreateGameObject<TGOBluePrint extends GameObject>(type: { new(): TGOBluePrint ;}, parent ?: GameObject) : TGOBluePrint {
+    let go : TGOBluePrint = new type();
     go.transform.SetParent(parent ? parent.transform : this.transform);
     return go;
   }
