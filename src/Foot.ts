@@ -1,54 +1,57 @@
 import GameObject from "./components/GameObject";
+import Colour from "./data/Colour";
 
-export default class Foot extends GameObject {
-  private _canvas : HTMLCanvasElement;
-  private _context : CanvasRenderingContext2D;
+var _canvas : HTMLCanvasElement;
+var _context : CanvasRenderingContext2D;
+var _hierarchy : GameObject = new GameObject();
+var _backgroundColour : Colour;
 
-  public get canvasWidth() {
-    return this._canvas.width;
+export function Initialize(canvas : HTMLCanvasElement, backgroundColour : Colour) {
+  _canvas = canvas;
+  _context = _canvas.getContext("2d");
+  _backgroundColour = backgroundColour;
+
+  _canvas.width = window.innerWidth;
+  _canvas.height = window.innerHeight;
+  window.addEventListener('resize', () => {
+    _canvas.width = window.innerWidth;
+    _canvas.height = window.innerHeight;
+  }, false);
+}
+
+export function CanvasWidth() {
+  return _canvas.width;
+}
+
+export function  CanvasHeight() {
+  return _canvas.height;
+}
+
+export function CreateGameObject<TGOBluePrint extends GameObject>(type: { new(): TGOBluePrint ;}, parent ?: GameObject) : TGOBluePrint {
+  let go : TGOBluePrint = new type();
+  go.transform.SetParent(parent ? parent.transform : _hierarchy.transform);
+  return go;
+}
+
+
+export function Start() {
+  BeginFrame();
+}
+
+function BeginFrame() {
+  requestAnimationFrame(BeginFrame);
+
+  for(let i = 0; i < _hierarchy.transform.children.length; ++i) {
+    _hierarchy.transform.children[i].gameObject.Update();
   }
 
-   public get canvasHeight() {
-    return this._canvas.height;
-  }
+  _context.clearRect(0, 0, _canvas.width, _canvas.height);
+  _context.fillStyle = `rgba(${_backgroundColour.r}, ${_backgroundColour.g}, ${_backgroundColour.b}, ${_backgroundColour.a})`;
+  _context.fillRect (0, 0, _canvas.width, _canvas.height);
 
-  SetCanvas(canvas : HTMLCanvasElement) {
-    this._canvas = canvas;
-    this._context = this._canvas.getContext("2d");
-
-    this._canvas.width = window.innerWidth;
-    this._canvas.height = window.innerHeight;
-    window.addEventListener('resize', this.OnWindowResize.bind(this), false);
-
-    this.BeginFrame();
-  }
-
-  OnWindowResize() {
-    this._canvas.width = window.innerWidth;
-    this._canvas.height = window.innerHeight;
-  }
-
-  CreateGameObject<TGOBluePrint extends GameObject>(type: { new(): TGOBluePrint ;}, parent ?: GameObject) : TGOBluePrint {
-    let go : TGOBluePrint = new type();
-    go.transform.SetParent(parent ? parent.transform : this.transform);
-    return go;
-  }
-
-  BeginFrame() {
-    requestAnimationFrame(this.BeginFrame.bind(this));
-
-    for(let i = 0; i < this.transform.children.length; ++i) {
-      this.transform.children[i].gameObject.Update();
-    }
-
-    this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
-    this._context.fillStyle = 'rgba(0, 0, 0, 1)';
-    this._context.fillRect (0, 0, this._canvas.width, this._canvas.height);
-
-    for(let i = 0; i < this.transform.children.length; ++i) {
-      this._context.save();
-      this.transform.children[i].gameObject.Draw(this._context);
-      this._context.restore();
-    }
+  for(let i = 0; i < _hierarchy.transform.children.length; ++i) {
+    _context.save();
+    _hierarchy.transform.children[i].gameObject.Draw(_context);
+    _context.restore();
   }
 }
