@@ -15,8 +15,9 @@ export default class Circle extends Component {
   Update() { }
 
   Draw(context : CanvasRenderingContext2D) {
-    let width : number = this.gameObject.transform.bounds.width;
-    let height : number = this.gameObject.transform.bounds.height;
+    let width : number = this.gameObject.width;
+    let height : number = this.gameObject.height;
+    
     context.beginPath();
     context.fillStyle = `rgba(${this.colour.r}, ${this.colour.g}, ${this.colour.b}, ${this.colour.a})`;
     context.arc(0, 0, this.radius, 0, 2 * Math.PI, false);
