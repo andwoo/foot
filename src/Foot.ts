@@ -1,9 +1,10 @@
 import GameObject from "./components/GameObject";
+import Hierarchy from "./components/Hierarchy";
 import Colour from "./data/Colour";
 
 var _canvas : HTMLCanvasElement;
 var _context : CanvasRenderingContext2D;
-var _hierarchy : GameObject = new GameObject();
+var _hierarchy : Hierarchy = new Hierarchy();
 var _backgroundColour : Colour;
 
 export function Initialize(canvas : HTMLCanvasElement, backgroundColour : Colour) {
@@ -42,7 +43,7 @@ function BeginFrame() {
   requestAnimationFrame(BeginFrame);
 
   for(let i = 0; i < _hierarchy.transform.children.length; ++i) {
-    _hierarchy.transform.children[i].gameObject.Update();
+    _hierarchy.transform.children[i].gameObject.InternalUpdate();
   }
 
   _context.clearRect(0, 0, _canvas.width, _canvas.height);
@@ -51,7 +52,7 @@ function BeginFrame() {
 
   for(let i = 0; i < _hierarchy.transform.children.length; ++i) {
     _context.save();
-    _hierarchy.transform.children[i].gameObject.Draw(_context);
+    _hierarchy.transform.children[i].gameObject.InternalDraw(_context);
     _context.restore();
   }
 }

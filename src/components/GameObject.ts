@@ -26,17 +26,20 @@ export default class GameObject {
     }
   }
 
-  Update() {
+  Update() { }
+
+  InternalUpdate() {
+    this.Update();
     for(let i = 0; i < this._components.length; ++i) {
       this._components[i].Update();
     }
 
     for(let i = 0; i < this._transform.children.length; ++i) {
-      this._transform.children[i].gameObject.Update();
+      this._transform.children[i].gameObject.InternalUpdate();
     }
   }
 
-  Draw(context : CanvasRenderingContext2D) {
+  InternalDraw(context : CanvasRenderingContext2D) {
     context.translate(this._transform.localPosition.x, this._transform.localPosition.y);
     context.rotate(this._transform.rotationRadians);
 
@@ -45,7 +48,7 @@ export default class GameObject {
     }
 
     for(let i = 0; i < this._transform.children.length; ++i) {
-      this._transform.children[i].gameObject.Draw(context);
+      this._transform.children[i].gameObject.InternalDraw(context);
     }
 
     context.translate(-this._transform.localPosition.x, -this._transform.localPosition.y);
