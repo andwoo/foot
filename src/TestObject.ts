@@ -1,6 +1,7 @@
 import GameObject from "./components/GameObject";
 import Vector2 from "./data/Vector2";
 import Square from "./shapes/Square";
+import Circle from "./shapes/Circle";
 import Colour from "./data/Colour";
 
 export default class TestObject extends GameObject {
@@ -11,8 +12,10 @@ export default class TestObject extends GameObject {
 
   constructor() {
     super();
-
-    this.AddComponent(new Square(new Colour(174, 213, 129, 1)));
+    let shape : Circle = new Circle();
+    shape.colour = new Colour(174, 213, 129, 1);
+    shape.radius = 5;
+    this.AddComponent(shape);
     this.transform.bounds.size = new Vector2(this._width, this._height);
   }
 
