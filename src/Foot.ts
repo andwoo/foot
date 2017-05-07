@@ -4,13 +4,14 @@ import Colour from "./data/Colour";
 
 var _canvas : HTMLCanvasElement;
 var _context : CanvasRenderingContext2D;
-var _hierarchy : Hierarchy = new Hierarchy();
+var _hierarchy : Hierarchy;
 var _backgroundColour : Colour;
 
 export function Initialize(canvas : HTMLCanvasElement, backgroundColour : Colour) {
   _canvas = canvas;
   _context = _canvas.getContext("2d");
   _backgroundColour = backgroundColour;
+  _hierarchy = new Hierarchy();
 
   _canvas.width = window.innerWidth;
   _canvas.height = window.innerHeight;

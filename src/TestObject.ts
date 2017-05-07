@@ -9,8 +9,8 @@ export default class TestObject extends GameObject {
   public toggleRotation : boolean;
   constructor() {
     super();
-    this.width = 10;
-    this.height = 10;
+    this.width = 50;
+    this.height = 50;
 
     this.AddImage();
   }

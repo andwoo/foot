@@ -7,22 +7,19 @@ const RADIANS_TO_DEGREES : number = 57.2958;
 
 export default class Transform {
   private _gameObject : GameObject;
-  public get gameObject() { return this._gameObject; }
-
   private _parent : Transform;
-  public get parent() { return this._parent; }
-
   private _children : Array<Transform>;
-  public get children() { return this._children; }
+  private _position : Vector2;
+  private _rotation : number;
+  private _rotationRadians : number;
 
   public bounds : Rect;
-
   public localPosition : Vector2;
 
-  private _position : Vector2;
-  public get position() : Vector2 {
-    return this._position;
-  }
+  public get gameObject() { return this._gameObject; }
+  public get parent() { return this._parent; }
+  public get children() { return this._children; }
+  public get position() : Vector2 { return this._position; }
 
   public set position(value : Vector2) {
     if(this._parent) {
@@ -36,8 +33,7 @@ export default class Transform {
 
     this.bounds.center = this._position;
   }
-
-  private _rotation : number;
+  
   public get rotation() { return this._rotation; }
   public set rotation(degrees : number) {
     this._rotation = degrees;
@@ -45,9 +41,8 @@ export default class Transform {
       this._rotation = this._rotation % 360;
     }
     this._rotationRadians = degrees * DEGREES_TO_RADIANS;
-  } 
-
-  private _rotationRadians : number;
+  }
+  
   public get rotationRadians() { return this._rotationRadians; }
   public set rotationRadians(radians : number) {
     this._rotationRadians = radians;

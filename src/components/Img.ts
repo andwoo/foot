@@ -12,7 +12,7 @@ export default class Img extends Component {
     this._imagePath = value;
     this._image = new Image();
     this._image.src = this._imagePath;
-    this._image.onload = this.OnImageLoaded;
+    this._image.onload = this.OnImageLoaded.bind(this);
   }
 
   public get imagePath() : string {
@@ -24,19 +24,30 @@ export default class Img extends Component {
   }
 
   OnImageLoaded() {
+    this._image.onload = null;
     this._imageLoaded = true;
-    console.log("banana loaded");
   }
 
   Update() { }
 
   Draw(context : CanvasRenderingContext2D) {
-    if(this._imageLoaded){
-      let width : number = this.gameObject.width;
-      let height : number = this.gameObject.height;
-      figure out why the image isnt drawing
-      context.drawImage(this._image, 0, 0, this._image.width, this._image.height, 0, 0, width, height);
-      //context.drawImage(this._image, width, height);
+    if(this._imageLoaded) {
+      context.save();
+      context.translate(-this.gameObject.transform.position.x, -this.gameObject.transform.position.y);
+
+      context.drawImage(this._image, 
+      //source image coordinates/sizing.
+      0, 
+      0, 
+      this._image.width, 
+      this._image.height, 
+      //destination coordinates/sizing
+      this.gameObject.transform.bounds.xMin,
+      this.gameObject.transform.bounds.yMin,
+      this.gameObject.width, 
+      this.gameObject.height);
+
+      context.restore();
     }
   }
 }

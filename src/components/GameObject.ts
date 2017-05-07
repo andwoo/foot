@@ -6,19 +6,10 @@ export default class GameObject {
   private _components : Array<Component>;
   private _transform : Transform;
   public get transform() { return this._transform; }
-  
-  public set width(value : number) {
-    this.transform.bounds.size = new Vector2(value, this.height);
-  }
-  public set height(value : number) {
-    this.transform.bounds.size = new Vector2(this.width, value);
-  }
-  public get width() : number {
-    return this.transform.bounds.width;
-  }
-  public get height() : number {
-    return this.transform.bounds.height;
-  }
+  public set width(value : number) { this.transform.bounds.size = new Vector2(value, this.height); }
+  public set height(value : number) { this.transform.bounds.size = new Vector2(this.width, value); }
+  public get width() : number { return this.transform.bounds.width; }
+  public get height() : number { return this.transform.bounds.height; }
 
   constructor() {
     this._components = new Array<Component>();
